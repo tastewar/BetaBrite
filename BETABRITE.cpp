@@ -11,7 +11,7 @@
    (c) 2011
 */
 #include <WProgram.h>
-#ifndef NODATEFUNCTIONS
+#ifdef DATEFUNCTIONS
 #include "RTClib.h"
 #endif
 #include "BETABRITE.h"
@@ -119,7 +119,7 @@ void BETABRITE::DelayBetweenCommands ( void )
 	delay ( BB_BETWEEN_COMMAND_DELAY );
 }
 
-#ifndef NODATEFUNCTIONS
+#ifdef DATEFUNCTIONS
 void BETABRITE::SetDateTime ( DateTime now, bool UseMilitaryTime )
 {
 	char		dow, strbuff[3];

@@ -45,7 +45,7 @@ public:
 	void EndCommand ( void );
 	void EndNestedCommand ( void );
 	void DelayBetweenCommands ( void );
-#ifndef NODATEFUNCTIONS
+#ifdef DATEFUNCTIONS
 	void SetDateTime ( DateTime now, bool UseMilitaryTime=false );
 #endif
 private:
