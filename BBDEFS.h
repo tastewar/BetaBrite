@@ -253,8 +253,22 @@
 #define BB_SP_PROPORTIONAL '0'
 #define BB_SP_FIXEDWIDTH   '1'
 
+// Special Function Labels
+
+#define BB_SFL_CLEARMEM '$'
+
+// Special Function File Types
+
+#define BB_SFFT_TEXT    'A'
+#define BB_SFFT_STRING  'B'
+#define BB_SFFT_DOTS    'D'
+
+// Special Function Keyboard Protection Status
+
+#define BB_SFKPS_LOCKED    'L'
+#define BB_SFKPS_UNLOCKED  'U'
+
 // Miscellaneous
 
 #define BB_PRIORITY_FILE_LABEL '0'
-
 #endif
