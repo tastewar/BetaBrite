@@ -11,7 +11,7 @@
    (c) 2011
 */
 #include <WProgram.h>
-#ifndef NODATEFUNCTIONS
+#ifdef DATEFUNCTIONS
 #include "RTClib.h"
 #endif
 #include "BETABRITE.h"
@@ -39,7 +39,6 @@ BETABRITE::~BETABRITE ( void )
 
 void BETABRITE::WriteTextFile ( const char Name, const char *Contents, const char initColor, const char Position, const char Mode, const char Special )
 {
-
 	BeginCommand ( );
 	BeginNestedCommand ( );
 	WriteTextFileNested ( Name, Contents, initColor, Position, Mode, Special );
@@ -94,6 +93,31 @@ void BETABRITE::WriteStringFileNested ( const char Name, const char *Contents )
 	print ( (char *)Contents );
 }
 
+void BETABRITE::SetMemoryConfiguration ( const char startingFile, unsigned int numFiles, unsigned int size )
+{
+  BeginCommand ( );  
+  BeginNestedCommand ( );
+  print ( BB_CC_WSPFUNC );
+  print ( BB_SFL_CLEARMEM );
+
+  char sizeBuf[5] = "0100";
+  if (size <= 0xffff)
+  {
+    sprintf(sizeBuf, "%04x", size);
+  }
+
+  for (char c = startingFile; c <  startingFile + numFiles; c++)
+  {
+    print ( c );
+    print ( BB_SFFT_TEXT );
+    print ( BB_SFKPS_LOCKED );
+    print ( sizeBuf );
+    print ( "FF00" );    // AlwaysOn for text file
+  }
+  
+  EndCommand ( );
+}
+
 void BETABRITE::BeginCommand ( void )
 {
 	Sync ( ); print ( BB_SOH ); print ( _type ); print ( _address[0] ); print ( _address[1] );
@@ -119,7 +143,7 @@ void BETABRITE::DelayBetweenCommands ( void )
 	delay ( BB_BETWEEN_COMMAND_DELAY );
 }
 
-#ifndef NODATEFUNCTIONS
+#ifdef DATEFUNCTIONS
 void BETABRITE::SetDateTime ( DateTime now, bool UseMilitaryTime )
 {
 	char		dow, strbuff[3];
