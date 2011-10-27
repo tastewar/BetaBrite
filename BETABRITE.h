@@ -40,6 +40,7 @@ public:
 	void CancelPriorityTextFile ( void );
 	void WriteStringFile ( const char Name, const char *Contents );
 	void WriteStringFileNested ( const char Name, const char *Contents );
+  void SetMemoryConfiguration ( const char startingFile, unsigned int numFiles=26, unsigned int size=256 );
 	void BeginCommand ( void );
 	void BeginNestedCommand ( void );
 	void EndCommand ( void );
